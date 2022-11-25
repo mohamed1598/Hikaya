@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@using hikaya.Models
+
+
+@using hikaya.Models
+
+@model List<hikaya.Models.Story>
+
+@{
+    List<User> users = ViewBag.users;
+}
+<div class="row">
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <div class="card col-12 col-md-4 col-lg-3">
+                <h5 class="card-header">@item.title</h5>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        @foreach (var user in users)
+                        {
+                            if (user.id == item.userid)
+                            {
+                                @Html.ActionLink(user.name, "writer", "User", new { id = user.id }, new { @class = "btn2" })
+                            }
+                        }
+                    </h5>
+                    <p class="card-text">@item.tags</p>
+                    @Html.ActionLink("Read", "viewStory", "Admin", new { id = item.id }, new { @class = "btn btn-info" })
+                    @if (Session["userid"] != null)
+                    {
+                        @Html.ActionLink("unSave", "unSave", "SavedStories", new { id = item.id }, new { @class = "btn btn-primary" })
+                    }
+                    @if (Session["isAdmin"] != null)
+                    {
+                        if (Session["isAdmin"].ToString() == "true")
+                        {
+                            @Html.ActionLink("Remove", "remove", "Admin", new { id = item.id }, new { @class = "btn btn-danger" })
+                        }
+                    }
+
+
+                </div>
+            </div>
+        }
+    }
+
+</div>
+
+

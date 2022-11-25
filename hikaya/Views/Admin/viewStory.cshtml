@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "viewStory";
+}
+
+@model hikaya.Models.StoryAndPlots
+
+<style>
+    * {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: large;
+    }
+
+    .all {
+        width: 100%;
+    }
+</style>
+
+@using hikaya.Models;
+
+@{
+    List<FeaturedMessage> msgs = ViewBag.msgs;
+    List<User> users = ViewBag.users;
+}
+
+<h1 class="text-center text-capitalize">@Model.story.title</h1>
+
+@foreach (var item in Model.plots)
+{
+
+    <h2 class="text-center">plot no @item.sort</h2>
+    <br />
+    <div class="row">
+        <div class="col-7">
+            <p>@item.text</p>
+        </div>
+        <div class="col-5 photo">
+            <img src="~/attached/@item.imageUrl" class="all" />
+        </div>
+    </div>
+}
+<br />
+@if (Session["userid"] != null)
+{
+    <form method="post">
+        <div class="row">
+            <div class="col-7">
+                <input type="text" name="comment" placeholder="comment" class="form-control" />
+            </div>
+            <div class="col-5">
+                <input type="submit" class="form-control" value="Add Comment" />
+            </div>
+        </div>
+    </form>
+}
+
+<br />
+<table class="table table-active table-striped">
+    <tr>
+        <th>User</th>
+        <th>message</th>
+        <th>date</th>
+    </tr>
+    @foreach (var item in msgs)
+    {
+        
+        <tr>
+            <td>
+                @foreach (var user in users)
+                {
+                    if (user.id == item.userid)
+                    {
+                         @user.name
+                    }
+                }
+            </td>
+            <td>@item.text</td>
+            <td>@item.date</td>
+        </tr>
+    }
+</table>

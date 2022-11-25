@@ -1,0 +1,75 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="~/wwwroot/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+</head>
+<body style="padding:0;min-height:80vh">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            @Html.ActionLink("Hikaya", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navmenu" class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    @if (Session["userid"] != null)
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("My Stories", "display", "Story", new { area = "" }, new { @class = "navbar-brand" })
+                        </li>
+                        if (Session["isAdmin"].ToString() == "true")
+                        {
+                            <li class="nav-item">
+                                @Html.ActionLink("Approve Stories", "display", "Admin", new { area = "" }, new { @class = "navbar-brand" })
+                            </li>
+                        }
+
+                        <li class="nav-item">
+                            @Html.ActionLink("Saved Stories", "Index", "SavedStories", new { area = "" }, new { @class = "navbar-brand" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("logout", "logout", "User", new { area = "" }, new { @class = "navbar-brand" })
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("register", "create", "User", new { area = "" }, new { @class = "navbar-brand" })
+                        </li>
+                        <li class="nav-item">
+                            @Html.ActionLink("login", "login", "User", new { area = "" }, new { @class = "navbar-brand" })
+                        </li>
+                    }
+                    @*<li class="nav-item">
+                    @{
+                        Html.RenderAction("search", "Partial");
+                    }
+                </li>*@
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container body-content">
+        <div class="p-5" style="min-height: 76vh">
+            @RenderBody()
+        </div>
+        
+        <hr />
+        <footer>
+            <p>&copy; 2021 - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

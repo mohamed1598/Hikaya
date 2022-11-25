@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "viewStory";
+}
+
+@model hikaya.Models.StoryAndPlots
+
+<style>
+    *{
+        font-family:'Times New Roman', Times, serif;
+        font-size:large;
+    }
+    .all {
+        width: 100%;
+    }
+</style>
+@using hikaya.Models
+<h1 class="text-center text-capitalize">@Model.story.title</h1>
+
+@foreach(var item in Model.plots)
+{
+    
+    <h2 class="text-center">plot no @item.sort</h2>
+    <br />
+    <td>@Html.ActionLink("edit plot", "editPlot", "Story", new { id = item.id }, new { @class = "btn btn-primary" })</td>
+    <br />
+    <div class="row">
+        <div class="col-7">
+            <p>@item.text</p>
+        </div>
+        <div class="col-5 photo">
+            <img src="~/attached/@item.imageUrl" class="all" />
+        </div>
+    </div>
+}
+
+
+

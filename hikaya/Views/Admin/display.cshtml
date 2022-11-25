@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "display";
+}
+
+@model List<hikaya.Models.Story>
+
+<br />
+
+<h2 class="text-center">Approve Stories</h2>
+
+
+<h2>My Stories</h2>
+<table class="table table-success table-striped ">
+    <tr>
+        <th>Story id</th>
+        <th>Story name</th>
+        <th>post date</th>
+        <th>tags</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>@item.id</td>
+    <td>@item.title</td>
+    <td>@item.postDate</td>
+    <td>@item.tags</td>
+    <td>@Html.ActionLink("view story", "viewStory", "Admin", new { id = item.id }, new { @class = "btn btn-info" })</td>
+    <td>@Html.ActionLink("Approve Story", "approve", "Admin", new { id = item.id }, new { @class = "btn btn-primary" })</td>
+    <td>@Html.ActionLink("Remove", "remove", "Admin", new { id = item.id }, new { @class = "btn btn-danger" })</td>
+</tr>
+    }
+</table>
